@@ -1,0 +1,129 @@
+﻿@using Web.DataModel
+@model MobilyaBilgi
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Aktas Mobilya</title>
+    <link rel="icon" type="image/png" href="~/Content/image/WebLogo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <style>
+
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+        }
+
+            .card:hover {
+                transform: scale(1.03);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            }
+
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .kampanya-banner {
+            background: linear-gradient(to right, #ffc107, #ff5722);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+            .kampanya-banner h1 {
+                font-size: 2.5rem;
+                font-weight: bold;
+            }
+
+            .kampanya-banner p {
+                font-size: 1.2rem;
+                margin-top: 10px;
+            }
+
+
+        .fiyat-eski {
+            text-decoration: line-through;
+            color: #888;
+            margin-left: 10px;
+            font-size: 0.9rem;
+        }
+
+
+        .etiket-indirim {
+            position: absolute;
+            background: #dc3545;
+            color: white;
+            padding: 6px 12px;
+            top: 10px;
+            left: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    <div class="kampanya-banner">
+        <h1>Bahar Indirimleri Basladi!</h1>
+        <p>
+            %70'e varan indirime sahip kaliteli mobilyalarimiz sizleri bekliyor.<br>
+            Sizde evinizi tekrar dizmek isterseniz alisverisin tam sirasi.
+        </p>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Kampanyalı Urunler</h2>
+        <div class="row g-4">
+            @foreach (var item in Model.kampanyaliUrunlers)
+            {
+                if (item.Aktif == true)
+                {
+                    <div class="col-md-4">
+                        <div class="card position-relative">
+                            <div class="etiket-indirim">%@item.IndirimOrani</div>
+                            <img src="~/Content/image/@item.Urunler.ResimYolu" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Urunler.UrunAdi</h5>
+                                <p class="card-text text-danger">₺@item.GuncelFiyat<span class="fiyat-eski">₺@item.EskiFiyat</span></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <h2 class="mt-5 mb-4">Diger Urunler</h2>
+        <div class="row g-4">
+            @foreach (var item in Model.urunlers)
+            {
+                if (item.Aktif == true)
+                {
+                    <div class="col-md-3">
+                        <div class="card">
+                            <img src="~/Content/image/@item.ResimYolu" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.UrunAdi </h5>
+                                <p class="card-text">@item.Aciklama</p>
+                                <p class="card-text">₺@item.Fiyat</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+</body>
+</html>

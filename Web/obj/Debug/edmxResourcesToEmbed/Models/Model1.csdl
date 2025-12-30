@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AktasMobilyaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="AktasMobilyaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Adminlers" EntityType="AktasMobilyaModel.Adminler" />
+    <EntitySet Name="KampanyaliUrunlers" EntityType="AktasMobilyaModel.KampanyaliUrunler" />
+    <EntitySet Name="Kataloglars" EntityType="AktasMobilyaModel.Kataloglar" />
+    <EntitySet Name="Urunlers" EntityType="AktasMobilyaModel.Urunler" />
+    <AssociationSet Name="FK__Kampanyal__UrunI__3D5E1FD2" Association="AktasMobilyaModel.FK__Kampanyal__UrunI__3D5E1FD2">
+      <End Role="Urunler" EntitySet="Urunlers" />
+      <End Role="KampanyaliUrunler" EntitySet="KampanyaliUrunlers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Urunler__Katalog__3A81B327" Association="AktasMobilyaModel.FK__Urunler__Katalog__3A81B327">
+      <End Role="Kataloglar" EntitySet="Kataloglars" />
+      <End Role="Urunler" EntitySet="Urunlers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Adminler">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="KampanyaliUrunler">
+    <Key>
+      <PropertyRef Name="KampanyaID" />
+    </Key>
+    <Property Name="KampanyaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UrunID" Type="Int32" Nullable="false" />
+    <Property Name="IndirimOrani" Type="Int32" />
+    <Property Name="EskiFiyat" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="GuncelFiyat" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="KampanyaBaslangic" Type="DateTime" Precision="3" />
+    <Property Name="KampanyaBitis" Type="DateTime" Precision="3" />
+    <Property Name="Aktif" Type="Boolean" />
+    <NavigationProperty Name="Urunler" Relationship="AktasMobilyaModel.FK__Kampanyal__UrunI__3D5E1FD2" FromRole="KampanyaliUrunler" ToRole="Urunler" />
+  </EntityType>
+  <EntityType Name="Kataloglar">
+    <Key>
+      <PropertyRef Name="KatalogID" />
+    </Key>
+    <Property Name="KatalogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KatalogAdi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="KatalogYol" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="KatalogResim" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Aktif" Type="Boolean" />
+    <NavigationProperty Name="Urunlers" Relationship="AktasMobilyaModel.FK__Urunler__Katalog__3A81B327" FromRole="Kataloglar" ToRole="Urunler" />
+  </EntityType>
+  <EntityType Name="Urunler">
+    <Key>
+      <PropertyRef Name="UrunID" />
+    </Key>
+    <Property Name="UrunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UrunAdi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Fiyat" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="ResimYolu" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Aktif" Type="Boolean" />
+    <Property Name="KatalogID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="KampanyaliUrunlers" Relationship="AktasMobilyaModel.FK__Kampanyal__UrunI__3D5E1FD2" FromRole="Urunler" ToRole="KampanyaliUrunler" />
+    <NavigationProperty Name="Kataloglar" Relationship="AktasMobilyaModel.FK__Urunler__Katalog__3A81B327" FromRole="Urunler" ToRole="Kataloglar" />
+  </EntityType>
+  <Association Name="FK__Kampanyal__UrunI__3D5E1FD2">
+    <End Type="AktasMobilyaModel.Urunler" Role="Urunler" Multiplicity="1" />
+    <End Type="AktasMobilyaModel.KampanyaliUrunler" Role="KampanyaliUrunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urunler">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="KampanyaliUrunler">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Urunler__Katalog__3A81B327">
+    <End Type="AktasMobilyaModel.Kataloglar" Role="Kataloglar" Multiplicity="1" />
+    <End Type="AktasMobilyaModel.Urunler" Role="Urunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kataloglar">
+        <PropertyRef Name="KatalogID" />
+      </Principal>
+      <Dependent Role="Urunler">
+        <PropertyRef Name="KatalogID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

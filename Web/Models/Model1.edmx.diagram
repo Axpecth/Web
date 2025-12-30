@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2f59b2775ca74accb97e55fbe58edd5a" Name="Diagram1">
+        <EntityTypeShape EntityType="AktasMobilyaModel.Adminler" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="AktasMobilyaModel.KampanyaliUrunler" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="AktasMobilyaModel.Kataloglar" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="AktasMobilyaModel.Urunler" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="AktasMobilyaModel.FK__Kampanyal__UrunI__3D5E1FD2" />
+        <AssociationConnector Association="AktasMobilyaModel.FK__Urunler__Katalog__3A81B327" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

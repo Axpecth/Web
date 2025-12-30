@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AktasMobilyaModelStoreContainer" CdmEntityContainer="AktasMobilyaEntities">
+    <EntitySetMapping Name="Adminlers">
+      <EntityTypeMapping TypeName="AktasMobilyaModel.Adminler">
+        <MappingFragment StoreEntitySet="Adminler">
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KampanyaliUrunlers">
+      <EntityTypeMapping TypeName="AktasMobilyaModel.KampanyaliUrunler">
+        <MappingFragment StoreEntitySet="KampanyaliUrunlers">
+          <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+          <ScalarProperty Name="KampanyaBitis" ColumnName="KampanyaBitis" />
+          <ScalarProperty Name="KampanyaBaslangic" ColumnName="KampanyaBaslangic" />
+          <ScalarProperty Name="GuncelFiyat" ColumnName="GuncelFiyat" />
+          <ScalarProperty Name="EskiFiyat" ColumnName="EskiFiyat" />
+          <ScalarProperty Name="IndirimOrani" ColumnName="IndirimOrani" />
+          <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+          <ScalarProperty Name="KampanyaID" ColumnName="KampanyaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kataloglars">
+      <EntityTypeMapping TypeName="AktasMobilyaModel.Kataloglar">
+        <MappingFragment StoreEntitySet="Kataloglars">
+          <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+          <ScalarProperty Name="KatalogResim" ColumnName="KatalogResim" />
+          <ScalarProperty Name="KatalogYol" ColumnName="KatalogYol" />
+          <ScalarProperty Name="KatalogAdi" ColumnName="KatalogAdi" />
+          <ScalarProperty Name="KatalogID" ColumnName="KatalogID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Urunlers">
+      <EntityTypeMapping TypeName="AktasMobilyaModel.Urunler">
+        <MappingFragment StoreEntitySet="Urunlers">
+          <ScalarProperty Name="KatalogID" ColumnName="KatalogID" />
+          <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+          <ScalarProperty Name="ResimYolu" ColumnName="ResimYolu" />
+          <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+          <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+          <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+          <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

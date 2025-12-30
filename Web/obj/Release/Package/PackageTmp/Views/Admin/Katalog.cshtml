@@ -1,0 +1,76 @@
+﻿@model Web.DataModel.MobilyaBilgi
+@{
+    ViewBag.Title = "Katalog Yönetimi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h3>📁 Katalog İşlemleri</h3>
+        <a href="/Admin/Index" class="btn btn-secondary">← Panele Dön</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">Yeni Katalog Ekle</div>
+                <div class="card-body">
+                    <form action="/Admin/KatalogIslem" method="post">
+                        <div class="mb-2">
+                            <label class="form-label">Katalog Adi</label>
+                            <input type="text" name="KAdi" class="form-control" maxlength="100" required />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Sayfa Yolu (Controller/Action)</label>
+                            <input type="text" name="KYol" class="form-control" maxlength="100" placeholder="/Home/Ornek" />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Katalog Resim</label>
+                            <input type="text" name="KResim" class="form-control" maxlength="255" />
+                        </div>
+                        <button type="submit" name="KatoEkle" class="btn btn-primary w-100" value="Ekle">Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header">Kayıtlı Kataloglar</div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Adi</th>
+                                    <th>Sayfa</th>
+                                    <th>Resim</th>
+                                    <th>Islem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.kataloglars.OrderByDescending(x => x.KatalogID))
+                                {
+                                    if (item.Aktif == true)
+                                    {
+                                        <tr>
+                                            <td>@item.KatalogAdi</td>
+                                            <td>@item.KatalogYol</td>
+                                            <td><img style="width:50px; height:50px; object-fit:cover;" src="~/Content/image/@item.KatalogResim" /></td>
+                                            <td>
+                                                <form action="/Admin/KatalogSil" method="post" onsubmit="return confirm('Bu kataloğu silmek istediğinizden emin misiniz?');">
+                                                    <input type="hidden" name="id" value="@item.KatalogID" />
+                                                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AktasMobilyaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Adminler">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KampanyaliUrunlers">
+    <Key>
+      <PropertyRef Name="KampanyaID" />
+    </Key>
+    <Property Name="KampanyaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UrunID" Type="int" Nullable="false" />
+    <Property Name="IndirimOrani" Type="int" />
+    <Property Name="EskiFiyat" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="GuncelFiyat" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="KampanyaBaslangic" Type="datetime" />
+    <Property Name="KampanyaBitis" Type="datetime" />
+    <Property Name="Aktif" Type="bit" />
+  </EntityType>
+  <EntityType Name="Kataloglars">
+    <Key>
+      <PropertyRef Name="KatalogID" />
+    </Key>
+    <Property Name="KatalogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KatalogAdi" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="KatalogYol" Type="nchar" MaxLength="100" />
+    <Property Name="KatalogResim" Type="nchar" MaxLength="100" />
+    <Property Name="Aktif" Type="bit" />
+  </EntityType>
+  <EntityType Name="Urunlers">
+    <Key>
+      <PropertyRef Name="UrunID" />
+    </Key>
+    <Property Name="UrunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UrunAdi" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="255" />
+    <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ResimYolu" Type="nvarchar" MaxLength="255" />
+    <Property Name="Aktif" Type="bit" />
+    <Property Name="KatalogID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Kampanyal__UrunI__3D5E1FD2">
+    <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="1" />
+    <End Role="KampanyaliUrunlers" Type="Self.KampanyaliUrunlers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urunlers">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="KampanyaliUrunlers">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Urunler__Katalog__3A81B327">
+    <End Role="Kataloglars" Type="Self.Kataloglars" Multiplicity="1" />
+    <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kataloglars">
+        <PropertyRef Name="KatalogID" />
+      </Principal>
+      <Dependent Role="Urunlers">
+        <PropertyRef Name="KatalogID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AktasMobilyaModelStoreContainer">
+    <EntitySet Name="Adminler" EntityType="Self.Adminler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KampanyaliUrunlers" EntityType="Self.KampanyaliUrunlers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kataloglars" EntityType="Self.Kataloglars" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Urunlers" EntityType="Self.Urunlers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Kampanyal__UrunI__3D5E1FD2" Association="Self.FK__Kampanyal__UrunI__3D5E1FD2">
+      <End Role="Urunlers" EntitySet="Urunlers" />
+      <End Role="KampanyaliUrunlers" EntitySet="KampanyaliUrunlers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Urunler__Katalog__3A81B327" Association="Self.FK__Urunler__Katalog__3A81B327">
+      <End Role="Kataloglars" EntitySet="Kataloglars" />
+      <End Role="Urunlers" EntitySet="Urunlers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

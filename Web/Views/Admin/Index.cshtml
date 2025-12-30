@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Admin Yönetim Merkezi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2>🛠️ Yönetim Paneli</h2>
+        <a href="/Admin/CikisYap" class="btn btn-danger btn-lg shadow-sm">
+            🚪 Güvenli Çıkış
+        </a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow h-100 border-primary">
+                <div class="card-body text-center">
+                    <h1 class="display-4 text-primary">📁</h1>
+                    <h4 class="card-title">Katalog Yönetimi</h4>
+                    <p class="card-text">Kategorileri ekle, düzenle veya sil.</p>
+                    <a href="/Admin/Katalog" class="btn btn-primary w-100 stretched-link">Yönet</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow h-100 border-success">
+                <div class="card-body text-center">
+                    <h1 class="display-4 text-success">🛋️</h1>
+                    <h4 class="card-title">Ürün Yönetimi</h4>
+                    <p class="card-text">Yeni ürünler ekle, fiyatları güncelle.</p>
+                    <a href="/Admin/Urun" class="btn btn-success w-100 stretched-link">Yönet</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow h-100 border-warning">
+                <div class="card-body text-center">
+                    <h1 class="display-4 text-warning">💸</h1>
+                    <h4 class="card-title">Kampanyalar</h4>
+                    <p class="card-text">İndirimleri ve fırsat ürünlerini ayarla.</p>
+                    <a href="/Admin/Kampanya" class="btn btn-warning w-100 stretched-link">Yönet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

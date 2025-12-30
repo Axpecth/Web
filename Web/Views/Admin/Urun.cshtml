@@ -1,0 +1,95 @@
+﻿@model Web.DataModel.MobilyaBilgi
+@{
+    ViewBag.Title = "Ürün Yönetimi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h3>🛋️ Ürün İşlemleri</h3>
+        <a href="/Admin/Index" class="btn btn-secondary">← Panele Dön</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">Yeni Ürün Ekle</div>
+                <div class="card-body">
+                    <form action="/Admin/UrunIslem" method="post">
+                        <div class="mb-2">
+                            <label class="form-label">Ürün Adi</label>
+                            <input type="text" name="UAdi" class="form-control" maxlength="100" required />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Aciklama</label>
+                            <input type="text" name="UAciklama" class="form-control" maxlength="255" />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Fiyat</label>
+                            <input type="number" name="UFiyat" class="form-control" min="0" step="1" required />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Resim Yolu</label>
+                            <input type="text" name="UResimYolu" class="form-control" maxlength="255" />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Katalog</label>
+                            <select name="Kato" class="form-select" required>
+                                <option selected disabled value="">Seçiniz</option>
+                                @foreach (var item in Model.kataloglars)
+                                {
+                                    if (item.Aktif == true)
+                                    {
+                                        <option value="@item.KatalogID">@item.KatalogAdi</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" name="UrunEkle" class="btn btn-success w-100" value="Ekle">Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header">Ürün Listesi</div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Adi</th>
+                                    <th>Katalog</th>
+                                    <th>Fiyat</th>
+                                    <th>Resim</th>
+                                    <th>Islem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.urunlers.OrderByDescending(x => x.UrunID))
+                                {
+                                    if (item.Aktif == true)
+                                    {
+                                        <tr>
+                                            <td>@item.UrunAdi</td>
+                                            <td>@item.Kataloglar.KatalogAdi</td>
+                                            <td>₺@item.Fiyat</td>
+                                            <td><img style="width:50px; height:50px; object-fit:cover;" src="~/Content/image/@item.ResimYolu" /></td>
+                                            <td>
+                                                <form action="/Admin/UrunSil" method="post" onsubmit="return confirm('Bu ürünü silmek istediğinizden emin misiniz?');">
+                                                    <input type="hidden" name="id" value="@item.UrunID" />
+                                                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

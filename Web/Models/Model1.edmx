@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AktasMobilyaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adminler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KampanyaliUrunlers">
+          <Key>
+            <PropertyRef Name="KampanyaID" />
+          </Key>
+          <Property Name="KampanyaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunID" Type="int" Nullable="false" />
+          <Property Name="IndirimOrani" Type="int" />
+          <Property Name="EskiFiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="GuncelFiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="KampanyaBaslangic" Type="datetime" />
+          <Property Name="KampanyaBitis" Type="datetime" />
+          <Property Name="Aktif" Type="bit" />
+        </EntityType>
+        <EntityType Name="Kataloglars">
+          <Key>
+            <PropertyRef Name="KatalogID" />
+          </Key>
+          <Property Name="KatalogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KatalogAdi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="KatalogYol" Type="nchar" MaxLength="100" />
+          <Property Name="KatalogResim" Type="nchar" MaxLength="100" />
+          <Property Name="Aktif" Type="bit" />
+        </EntityType>
+        <EntityType Name="Urunlers">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunAdi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ResimYolu" Type="nvarchar" MaxLength="255" />
+          <Property Name="Aktif" Type="bit" />
+          <Property Name="KatalogID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Kampanyal__UrunI__3D5E1FD2">
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="1" />
+          <End Role="KampanyaliUrunlers" Type="Self.KampanyaliUrunlers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunlers">
+              <PropertyRef Name="UrunID" />
+            </Principal>
+            <Dependent Role="KampanyaliUrunlers">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Urunler__Katalog__3A81B327">
+          <End Role="Kataloglars" Type="Self.Kataloglars" Multiplicity="1" />
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kataloglars">
+              <PropertyRef Name="KatalogID" />
+            </Principal>
+            <Dependent Role="Urunlers">
+              <PropertyRef Name="KatalogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AktasMobilyaModelStoreContainer">
+          <EntitySet Name="Adminler" EntityType="Self.Adminler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KampanyaliUrunlers" EntityType="Self.KampanyaliUrunlers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kataloglars" EntityType="Self.Kataloglars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urunlers" EntityType="Self.Urunlers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Kampanyal__UrunI__3D5E1FD2" Association="Self.FK__Kampanyal__UrunI__3D5E1FD2">
+            <End Role="Urunlers" EntitySet="Urunlers" />
+            <End Role="KampanyaliUrunlers" EntitySet="KampanyaliUrunlers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Urunler__Katalog__3A81B327" Association="Self.FK__Urunler__Katalog__3A81B327">
+            <End Role="Kataloglars" EntitySet="Kataloglars" />
+            <End Role="Urunlers" EntitySet="Urunlers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AktasMobilyaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AktasMobilyaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adminlers" EntityType="AktasMobilyaModel.Adminler" />
+          <EntitySet Name="KampanyaliUrunlers" EntityType="AktasMobilyaModel.KampanyaliUrunler" />
+          <EntitySet Name="Kataloglars" EntityType="AktasMobilyaModel.Kataloglar" />
+          <EntitySet Name="Urunlers" EntityType="AktasMobilyaModel.Urunler" />
+          <AssociationSet Name="FK__Kampanyal__UrunI__3D5E1FD2" Association="AktasMobilyaModel.FK__Kampanyal__UrunI__3D5E1FD2">
+            <End Role="Urunler" EntitySet="Urunlers" />
+            <End Role="KampanyaliUrunler" EntitySet="KampanyaliUrunlers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Urunler__Katalog__3A81B327" Association="AktasMobilyaModel.FK__Urunler__Katalog__3A81B327">
+            <End Role="Kataloglar" EntitySet="Kataloglars" />
+            <End Role="Urunler" EntitySet="Urunlers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Adminler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="KampanyaliUrunler">
+          <Key>
+            <PropertyRef Name="KampanyaID" />
+          </Key>
+          <Property Name="KampanyaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunID" Type="Int32" Nullable="false" />
+          <Property Name="IndirimOrani" Type="Int32" />
+          <Property Name="EskiFiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="GuncelFiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="KampanyaBaslangic" Type="DateTime" Precision="3" />
+          <Property Name="KampanyaBitis" Type="DateTime" Precision="3" />
+          <Property Name="Aktif" Type="Boolean" />
+          <NavigationProperty Name="Urunler" Relationship="AktasMobilyaModel.FK__Kampanyal__UrunI__3D5E1FD2" FromRole="KampanyaliUrunler" ToRole="Urunler" />
+        </EntityType>
+        <EntityType Name="Kataloglar">
+          <Key>
+            <PropertyRef Name="KatalogID" />
+          </Key>
+          <Property Name="KatalogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KatalogAdi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KatalogYol" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="KatalogResim" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Aktif" Type="Boolean" />
+          <NavigationProperty Name="Urunlers" Relationship="AktasMobilyaModel.FK__Urunler__Katalog__3A81B327" FromRole="Kataloglar" ToRole="Urunler" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunAdi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Aciklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ResimYolu" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Aktif" Type="Boolean" />
+          <Property Name="KatalogID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="KampanyaliUrunlers" Relationship="AktasMobilyaModel.FK__Kampanyal__UrunI__3D5E1FD2" FromRole="Urunler" ToRole="KampanyaliUrunler" />
+          <NavigationProperty Name="Kataloglar" Relationship="AktasMobilyaModel.FK__Urunler__Katalog__3A81B327" FromRole="Urunler" ToRole="Kataloglar" />
+        </EntityType>
+        <Association Name="FK__Kampanyal__UrunI__3D5E1FD2">
+          <End Type="AktasMobilyaModel.Urunler" Role="Urunler" Multiplicity="1" />
+          <End Type="AktasMobilyaModel.KampanyaliUrunler" Role="KampanyaliUrunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="UrunID" />
+            </Principal>
+            <Dependent Role="KampanyaliUrunler">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Urunler__Katalog__3A81B327">
+          <End Type="AktasMobilyaModel.Kataloglar" Role="Kataloglar" Multiplicity="1" />
+          <End Type="AktasMobilyaModel.Urunler" Role="Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kataloglar">
+              <PropertyRef Name="KatalogID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="KatalogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AktasMobilyaModelStoreContainer" CdmEntityContainer="AktasMobilyaEntities">
+          <EntitySetMapping Name="Adminlers">
+            <EntityTypeMapping TypeName="AktasMobilyaModel.Adminler">
+              <MappingFragment StoreEntitySet="Adminler">
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KampanyaliUrunlers">
+            <EntityTypeMapping TypeName="AktasMobilyaModel.KampanyaliUrunler">
+              <MappingFragment StoreEntitySet="KampanyaliUrunlers">
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+                <ScalarProperty Name="KampanyaBitis" ColumnName="KampanyaBitis" />
+                <ScalarProperty Name="KampanyaBaslangic" ColumnName="KampanyaBaslangic" />
+                <ScalarProperty Name="GuncelFiyat" ColumnName="GuncelFiyat" />
+                <ScalarProperty Name="EskiFiyat" ColumnName="EskiFiyat" />
+                <ScalarProperty Name="IndirimOrani" ColumnName="IndirimOrani" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+                <ScalarProperty Name="KampanyaID" ColumnName="KampanyaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kataloglars">
+            <EntityTypeMapping TypeName="AktasMobilyaModel.Kataloglar">
+              <MappingFragment StoreEntitySet="Kataloglars">
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+                <ScalarProperty Name="KatalogResim" ColumnName="KatalogResim" />
+                <ScalarProperty Name="KatalogYol" ColumnName="KatalogYol" />
+                <ScalarProperty Name="KatalogAdi" ColumnName="KatalogAdi" />
+                <ScalarProperty Name="KatalogID" ColumnName="KatalogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urunlers">
+            <EntityTypeMapping TypeName="AktasMobilyaModel.Urunler">
+              <MappingFragment StoreEntitySet="Urunlers">
+                <ScalarProperty Name="KatalogID" ColumnName="KatalogID" />
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+                <ScalarProperty Name="ResimYolu" ColumnName="ResimYolu" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
